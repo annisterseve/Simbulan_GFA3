@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Genshin Impact Gacha Simulator</title>
+<style>
+  @font-face {
+    font-family: "genshin";
+    src: url('genshin.ttf');
+  }
+  body {
+    background: url(genshin_bg.png) no-repeat center center fixed;
+    background-size: cover;
+    font-family: "genshin";
+    font-size: 135%;
+  }
+  h1 {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 1);
+    color: #FFF;
+    font-size: 325%;
+    margin-top: 35px;
+    opacity: 0;
+    animation: slideIn 1s forwards;
+  }
+  p.firstPart {
+    margin-top: 100px;
+    font-size: 130%;
+    color: #575654;  
+    opacity: 0;
+    animation: slideIn 1s forwards;
+  } 
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    float: right;
+  }
+  .character {
+    background-size: cover;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 40px;
+    padding: 15px;
+    width: 200px;
+    height: 525px;
+    display: flex;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+  .character p {
+    margin-top: 400%;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  #character_rolled, #player_time, #player_name {
+    color: #575654;
+    font-size: 115%;
+    opacity: 0;
+    animation: slideIn 1s forwards;
+  }
+
+  .Intro {
+
+    background-color: white;
+
+  }
+
+</style>
+</head>
+<body>
+  <h1>Genshin Impact Gacha</h1>
+  <div class="container">
+    <div class="character" style="background-image: url(hutao.png);">
+      <p id="hu_tao"></p>
+    </div>
+    <div class="character" style="background-image: url(yelan.png);">
+      <p id="yelan"></p>
+    </div>
+    <div class="character" style="background-image: url(xiao.png);">
+      <p id="xiao"></p>
+    </div>
+  </div>
+  <div class="Intro">
+    <p class="firstPart">Welcome to the website alternative for Genshin Impact's Gacha system!</p>
+    <div id="javaOutput">
+      <p id="character_rolled"></p>
+      <p id="player_time"></p>
+      <p id="player_name"></p>
+    </div>
+  </div>
+
+<script>
+ 
+const players = Math.floor(Math.random() * 1001);
+var num1 = Math.floor(Math.random() * 20 + 1);
+var num2 = Math.floor(Math.random() * 20 + 1);
+var num3 = Math.floor(Math.random() * 20 + 1);
+var mins = num2 * num3 + 15;
+var hours = Math.floor(mins / 60);
+var letter = String.fromCharCode(65 + parseInt(num1));
+var minutes = num2 * num3;
+var hours = Math.floor(minutes / 60);
+var remainingMinutes = minutes % 60;
+var hourText = hours > 1 ? 'hours' : 'hour';
+var minuteText = remainingMinutes > 1 ? 'minutes' : 'minute';
+var characterRolled;
+
+if (num1 > num2 && num1 > num3) {
+  characterRolled = "Hu-tao";
+} else if (num2 > num1 && num2 > num3) {
+  characterRolled = "Yelan";
+} else if (num3 > num1 && num3 > num2) {
+  characterRolled = "Xiao";
+} else if (num1 === num2 && num2 === num3) {
+  characterRolled = "You got all three!";
+} else if (num1 === num2) {
+  characterRolled = "Hu-tao and Yelan";
+} else if (num1 === num3) {
+  characterRolled = "Hu-tao and Xiao";
+} else if (num2 === num3) {
+  characterRolled = "Yelan and Xiao";
+} 
+
+
+document.getElementById("hu_tao").innerHTML = num1;
+document.getElementById("yelan").innerHTML = num2;
+document.getElementById("xiao").innerHTML = num3;
+document.getElementById("character_rolled").innerHTML = "You got " + characterRolled + "!";
+document.getElementById("player_time").innerHTML = players + " Got " + characterRolled + " The past " +  minutes + ' ' + minuteText + ' (' + hours + ' ' + hourText + ' and ' + remainingMinutes + ' ' + minuteText + ')';
+document.getElementById("player_name").innerHTML = "The last player's name who got " + characterRolled + " starts with the letter " + letter;
+</script>
+
+</body>
+</html>
